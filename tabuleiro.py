@@ -25,12 +25,12 @@ class Tabuleiro:
         for i in range(len(peca_matriz)):
             for j in range(len(peca_matriz[0])):
                 if peca_matriz[i][j] == 1: 
-                    # Verifica se saiu dos limites do tabuleiro (todas as bordas)
+                    # Verifica se saiu dos limites do tabuleiro
                     if (linha_inicio + i >= self.linhas) or (coluna_inicio + j >= self.colunas) or \
                        (linha_inicio + i < 0) or (coluna_inicio + j < 0):
                         return False
                         
-                    # Verifica se já tem uma peça lá (sobreposição)
+                    # Verifica se já tem uma peça lá 
                     if self.matriz[linha_inicio + i][coluna_inicio + j] != 0:
                         return False
         return True

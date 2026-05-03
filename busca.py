@@ -13,7 +13,7 @@ def encontrar_primeira_celula_vazia(tabuleiro):
         for j in range(tabuleiro.colunas):
             if tabuleiro.matriz[i][j] == 0:
                 return i, j
-    return None # Tabuleiro cheio (Solução encontrada!)
+    return None # Tabuleiro cheio (Solução encontrada)
 
 def gerar_vizinhos(tabuleiro_atual, pecas_restantes):
     """
@@ -54,7 +54,6 @@ def resolver_dfs(tabuleiro_inicial, pecas_iniciais, interface=None):
     print("Iniciando Busca em Profundidade (DFS)...")
     tempo_inicio = time.time()
     
-    # A pilha armazena tuplas: estado_do_tabuleiro, dicionario_de_pecas_restantes
     pilha = [(tabuleiro_inicial, pecas_iniciais)]
     
     estados_visitados = ArvoreAVL()

@@ -34,9 +34,16 @@ def mostrar_variacoes(variacoes):
         print("")
 
 def modo_jogar(tabuleiro):
-    """Modo interativo para o usuário jogar manualmente."""
+    """Modo interativo com espelhamento gráfico."""
     print("\n=== MODO JOGAR ===")
     pecas_restantes = TODAS_AS_PECAS.copy()
+    
+    # --- Abre a janela gráfica para o jogador ---
+    print("Abrindo o tabuleiro visual...")
+    interface = InterfaceAnimada(tabuleiro.linhas, tabuleiro.colunas, atraso=0)
+    interface.janela.title("Modo Jogar - Interativo")
+    interface.atualizar(tabuleiro)
+    # -----------------------------------------------------
     
     while pecas_restantes:
         print("\nEstado atual do tabuleiro:")
@@ -45,13 +52,14 @@ def modo_jogar(tabuleiro):
         
         peca_escolhida = input("Escolha uma peça (ou 'sair' para encerrar): ").upper()
         if peca_escolhida == 'SAIR':
-            break
+            print("\nJogo encerrado pelo usuário.")
+            interface.janela.destroy() # Fecha a janela gráfica na hora
+            return # Sai da função e volta direto para o menu principal
             
         if peca_escolhida not in pecas_restantes:
             print("Peça inválida ou já utilizada!")
             continue
             
-        # Gera todas as rotações e reflexões da peça escolhida
         matriz_base = pecas_restantes[peca_escolhida]
         variacoes = gerar_todas_variacoes(matriz_base)
         
@@ -64,7 +72,6 @@ def modo_jogar(tabuleiro):
                 continue
                 
             matriz_peca = variacoes[escolha_var]
-            
             linha = int(input("Linha inicial para inserir (0 a {}): ".format(tabuleiro.linhas - 1)))
             coluna = int(input("Coluna inicial para inserir (0 a {}): ".format(tabuleiro.colunas - 1)))
         except ValueError:
@@ -75,11 +82,15 @@ def modo_jogar(tabuleiro):
             tabuleiro = tabuleiro.inserir_peca(matriz_peca, linha, coluna, peca_escolhida)
             del pecas_restantes[peca_escolhida]
             print("\n✅ Jogada válida!")
+            
+            # --- Atualiza a tela gráfica com a nova peça ---
+            interface.atualizar(tabuleiro)
         else:
             print("\n❌ Jogada inválida! Verifique os limites e sobreposições.")
             
     print("\nFim de jogo. Estado final do tabuleiro:")
     tabuleiro.exibir()
+    interface.finalizar() # Trava a janela aberta no final
 
 def modo_resolver(tabuleiro):
     """Modo automático utilizando grafos e buscas."""
@@ -97,7 +108,7 @@ def modo_resolver(tabuleiro):
     if escolha == '1':
         solucao = resolver_dfs(tabuleiro, pecas_iniciais, interface)
     elif escolha == '2':
-        solucao = resolver_bfs(tabuleiro, pecas_iniciais, interface) # Só vai animar se você adicionou o parâmetro na BFS também
+        solucao = resolver_bfs(tabuleiro, pecas_iniciais, interface)
     else:
         print("Opção inválida.")
         return
@@ -106,7 +117,7 @@ def modo_resolver(tabuleiro):
         print("\n🏆 Solução Final Encontrada:")
         solucao.exibir()
         if interface:
-            interface.finalizar() # Trava a janela aberta no final
+            interface.finalizar()
     else:
         print("\nO algoritmo não conseguiu encontrar uma solução.")
 

@@ -5,7 +5,7 @@ CORES_PECAS = {
     'F': '#FFA500', 'I': '#00FFFF', 'L': '#0000FF', 'N': '#32CD32',
     'P': '#FF0000', 'T': '#800080', 'U': '#8B4513', 'V': '#FF69B4',
     'W': '#FFFF00', 'X': '#A9A9A9', 'Y': '#98FB98', 'Z': '#FF00FF',
-    0:   '#FFFFFF'  # Espaço Vazio
+    0:   '#FFFFFF'
 }
 
 class InterfaceAnimada:
@@ -40,8 +40,8 @@ class InterfaceAnimada:
                     self.canvas.create_text(x1 + self.tamanho_celula/2, y1 + self.tamanho_celula/2, 
                                        text=str(id_peca), font=("Arial", 12, "bold"))
         
-        self.janela.update() # Força o Tkinter a desenhar IMEDIATAMENTE
-        time.sleep(self.atraso) # Pausa para o olho humano ver
+        self.janela.update() # Força o Tkinter a desenhar imediatamente
+        time.sleep(self.atraso) # Pausa para o "olho humano" ver
 
     def finalizar(self):
         """Mantém a janela aberta no final até o usuário fechar."""
