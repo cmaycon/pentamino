@@ -2,6 +2,7 @@ import sys
 from tabuleiro import Tabuleiro
 from busca import resolver_dfs, resolver_bfs
 from pecas import TODAS_AS_PECAS, gerar_todas_variacoes
+from gui import exibir_interface_grafica
 
 def configurar_tabuleiro():
     """Lida com a entrada de dados e validação das dimensões."""
@@ -100,7 +101,9 @@ def modo_resolver(tabuleiro):
         
     if solucao:
         print("\n🏆 Solução Final Encontrada:")
-        solucao.exibir()
+        solucao.exibir() # Mantém a exibição no terminal
+        print("Abrindo interface gráfica...")
+        exibir_interface_grafica(solucao) # <--- Chama a nossa nova tela!
     else:
         print("\nO algoritmo não conseguiu encontrar uma solução para este tabuleiro com as peças dadas.")
 

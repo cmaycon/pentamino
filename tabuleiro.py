@@ -39,7 +39,7 @@ class Tabuleiro:
         """
         Insere a peça e retorna um NOVO estado (uma nova instância de Tabuleiro).
         Retornar um novo estado em vez de alterar o atual é crucial para modelar 
-        o problema como um grafo na hora da busca[cite: 1].
+        o problema como um grafo na hora da busca.
         """
         # Cria uma cópia totalmente independente do tabuleiro atual
         novo_tabuleiro = Tabuleiro(self.linhas, self.colunas)
@@ -55,8 +55,8 @@ class Tabuleiro:
         
     def gerar_assinatura(self):
         """
-        Gera uma string única que representa a configuração atual do tabuleiro[cite: 1].
+        Gera uma string única que representa a configuração atual do tabuleiro.
         Essa string será transformada na chave única (hash) que usaremos na 
-        Árvore AVL para evitar explorar estados redundantes[cite: 1].
+        Árvore AVL para evitar explorar estados redundantes.
         """
         return str(self.matriz)

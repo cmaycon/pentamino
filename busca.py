@@ -75,7 +75,7 @@ def resolver_dfs(tabuleiro_inicial, pecas_iniciais):
         if encontrar_primeira_celula_vazia(tab_atual) is None:
             tempo_fim = time.time()
             print(f"Solução encontrada com DFS em {tempo_fim - tempo_inicio:.4f} segundos!")
-            print(f"Estados explorados: {num_estados_explorados}[cite: 1]")
+            print(f"Estados explorados: {num_estados_explorados}")
             return tab_atual
             
         # Adiciona os vizinhos na pilha
@@ -88,9 +88,9 @@ def resolver_dfs(tabuleiro_inicial, pecas_iniciais):
 
 def resolver_bfs(tabuleiro_inicial, pecas_iniciais):
     """
-    Busca em Largura (BFS)[cite: 1].
+    Busca em Largura (BFS).
     Usa uma Fila (Queue) - Explora nível por nível. 
-    Encontra a solução com menor profundidade[cite: 1].
+    Encontra a solução com menor profundidade.
     """
     print("Iniciando Busca em Largura (BFS)...")
     tempo_inicio = time.time()
@@ -114,7 +114,7 @@ def resolver_bfs(tabuleiro_inicial, pecas_iniciais):
         if encontrar_primeira_celula_vazia(tab_atual) is None:
             tempo_fim = time.time()
             print(f"Solução encontrada com BFS em {tempo_fim - tempo_inicio:.4f} segundos!")
-            print(f"Estados explorados: {num_estados_explorados}[cite: 1]")
+            print(f"Estados explorados: {num_estados_explorados}")
             return tab_atual
             
         vizinhos = gerar_vizinhos(tab_atual, pecas_restantes)

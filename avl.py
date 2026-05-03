@@ -15,7 +15,7 @@ class ArvoreAVL:
             self.raiz = self._inserir_recursivo(self.raiz, chave)
 
     def buscar(self, chave):
-        """Operação principal de busca para verificar se o estado já foi visitado[cite: 1]"""
+        """Operação principal de busca para verificar se o estado já foi visitado"""
         return self._buscar_recursivo(self.raiz, chave)
 
     def _inserir_recursivo(self, no, chave):
