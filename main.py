@@ -2,7 +2,7 @@ import sys
 from tabuleiro import Tabuleiro
 from busca import resolver_dfs, resolver_bfs
 from pecas import TODAS_AS_PECAS, gerar_todas_variacoes
-from gui import exibir_interface_grafica
+from gui import InterfaceAnimada
 
 def configurar_tabuleiro():
     """Lida com a entrada de dados e validação das dimensões."""
@@ -88,24 +88,27 @@ def modo_resolver(tabuleiro):
     print("2. Busca em Largura (BFS)")
     
     escolha = input("Escolha o algoritmo (1 ou 2): ")
-    
     pecas_iniciais = TODAS_AS_PECAS.copy()
     
+    # Pergunta se quer animar
+    animar = input("Deseja ver a animação da busca? (s/n): ").lower() == 's'
+    interface = InterfaceAnimada(tabuleiro.linhas, tabuleiro.colunas, atraso=0.05) if animar else None
+    
     if escolha == '1':
-        solucao = resolver_dfs(tabuleiro, pecas_iniciais)
+        solucao = resolver_dfs(tabuleiro, pecas_iniciais, interface)
     elif escolha == '2':
-        solucao = resolver_bfs(tabuleiro, pecas_iniciais)
+        solucao = resolver_bfs(tabuleiro, pecas_iniciais, interface) # Só vai animar se você adicionou o parâmetro na BFS também
     else:
         print("Opção inválida.")
         return
         
     if solucao:
         print("\n🏆 Solução Final Encontrada:")
-        solucao.exibir() # Mantém a exibição no terminal
-        print("Abrindo interface gráfica...")
-        exibir_interface_grafica(solucao) # <--- Chama a nossa nova tela!
+        solucao.exibir()
+        if interface:
+            interface.finalizar() # Trava a janela aberta no final
     else:
-        print("\nO algoritmo não conseguiu encontrar uma solução para este tabuleiro com as peças dadas.")
+        print("\nO algoritmo não conseguiu encontrar uma solução.")
 
 def main():
     print("Bem-vindo ao Jogo de Pentaminós!")

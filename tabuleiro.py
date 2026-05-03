@@ -56,7 +56,7 @@ class Tabuleiro:
     def gerar_assinatura(self):
         """
         Gera uma string única que representa a configuração atual do tabuleiro.
-        Essa string será transformada na chave única (hash) que usaremos na 
+        Essa string será transformada na chave única (hash) que será usada na 
         Árvore AVL para evitar explorar estados redundantes.
         """
         return str(self.matriz)

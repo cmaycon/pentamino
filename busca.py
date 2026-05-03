@@ -6,7 +6,7 @@ from pecas import gerar_todas_variacoes
 def encontrar_primeira_celula_vazia(tabuleiro):
     """
     Otimização crucial: Em vez de tentar colocar peças em qualquer lugar,
-    buscamos o primeiro espaço vazio (de cima para baixo, esquerda para direita).
+    busca o primeiro espaço vazio (de cima para baixo, esquerda para direita).
     Isso reduz drasticamente a árvore de busca e evita gerar permutações repetidas.
     """
     for i in range(tabuleiro.linhas):
@@ -46,7 +46,7 @@ def gerar_vizinhos(tabuleiro_atual, pecas_restantes):
                             vizinhos.append((novo_tab, novas_pecas_restantes))
     return vizinhos
 
-def resolver_dfs(tabuleiro_inicial, pecas_iniciais):
+def resolver_dfs(tabuleiro_inicial, pecas_iniciais, interface=None):
     """
     Busca em Profundidade (DFS).
     Usa uma Pilha (Stack) - Vai até o fim de um caminho antes de voltar.
@@ -62,6 +62,10 @@ def resolver_dfs(tabuleiro_inicial, pecas_iniciais):
     
     while pilha:
         tab_atual, pecas_restantes = pilha.pop()
+
+        if interface:
+            interface.atualizar(tab_atual)
+
         assinatura = tab_atual.gerar_assinatura()
         
         # Se a AVL já contém este estado, ignora para evitar redundância
@@ -86,7 +90,7 @@ def resolver_dfs(tabuleiro_inicial, pecas_iniciais):
     print("Nenhuma solução encontrada.")
     return None
 
-def resolver_bfs(tabuleiro_inicial, pecas_iniciais):
+def resolver_bfs(tabuleiro_inicial, pecas_iniciais, interface=None):
     """
     Busca em Largura (BFS).
     Usa uma Fila (Queue) - Explora nível por nível. 
@@ -103,6 +107,9 @@ def resolver_bfs(tabuleiro_inicial, pecas_iniciais):
     while fila:
         tab_atual, pecas_restantes = fila.popleft()
         
+        if interface:
+            interface.atualizar(tab_atual)
+
         assinatura = tab_atual.gerar_assinatura()
         
         if estados_visitados.buscar(assinatura):
